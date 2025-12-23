@@ -78,6 +78,7 @@
         .area-card {
             transition: all 0.4s ease;
             overflow: hidden;
+            cursor: pointer; /* Indica que é clicável */
         }
         .area-card:hover {
             transform: translateY(-8px);
@@ -88,6 +89,24 @@
         }
         .area-card:hover img {
             transform: scale(1.1);
+        }
+
+        /* Modal Animation */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            transform: scale(0.95);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
         }
 
         /* Efeito de hover nos cards de serviço */
@@ -231,16 +250,19 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="font-heading text-3xl font-bold text-gray-900 section-title">Minhas Áreas de Atuação</h2>
-                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Atuo na intersecção entre tecnologia, negócios e informação para entregar valor real.</p>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Clique nos cards abaixo para ver detalhes sobre como atuo em cada área.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Card 1: TI -->
-                <div class="area-card bg-white rounded-xl shadow-lg border border-gray-100 group">
+                <div class="area-card bg-white rounded-xl shadow-lg border border-gray-100 group" onclick="openModal('modal-ti')">
                     <div class="h-48 overflow-hidden relative">
                          <div class="absolute inset-0 bg-blue-900/40 group-hover:bg-blue-900/20 transition z-10"></div>
                         <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" 
                              alt="Tecnologia da Informação" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 right-4 z-20 bg-white/90 text-tech-DEFAULT px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                            <i class="fas fa-plus mr-1"></i> Saiba Mais
+                        </div>
                     </div>
                     <div class="p-8 text-center relative z-20 bg-white">
                         <div class="w-12 h-12 bg-tech-DEFAULT text-white rounded-full flex items-center justify-center mx-auto -mt-14 mb-4 border-4 border-white shadow-md relative z-30">
@@ -252,11 +274,14 @@
                 </div>
 
                 <!-- Card 2: Marketing -->
-                <div class="area-card bg-white rounded-xl shadow-lg border border-gray-100 group">
+                <div class="area-card bg-white rounded-xl shadow-lg border border-gray-100 group" onclick="openModal('modal-mkt')">
                     <div class="h-48 overflow-hidden relative">
                         <div class="absolute inset-0 bg-blue-900/40 group-hover:bg-blue-900/20 transition z-10"></div>
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" 
                              alt="Marketing Digital" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 right-4 z-20 bg-white/90 text-tech-DEFAULT px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                            <i class="fas fa-plus mr-1"></i> Saiba Mais
+                        </div>
                     </div>
                     <div class="p-8 text-center relative z-20 bg-white">
                         <div class="w-12 h-12 bg-tech-DEFAULT text-white rounded-full flex items-center justify-center mx-auto -mt-14 mb-4 border-4 border-white shadow-md relative z-30">
@@ -268,11 +293,14 @@
                 </div>
 
                 <!-- Card 3: Inovação -->
-                <div class="area-card bg-white rounded-xl shadow-lg border border-gray-100 group">
+                <div class="area-card bg-white rounded-xl shadow-lg border border-gray-100 group" onclick="openModal('modal-inovacao')">
                     <div class="h-48 overflow-hidden relative">
                         <div class="absolute inset-0 bg-blue-900/40 group-hover:bg-blue-900/20 transition z-10"></div>
                         <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800" 
                              alt="Inovação e IA" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 right-4 z-20 bg-white/90 text-tech-DEFAULT px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                            <i class="fas fa-plus mr-1"></i> Saiba Mais
+                        </div>
                     </div>
                     <div class="p-8 text-center relative z-20 bg-white">
                         <div class="w-12 h-12 bg-tech-DEFAULT text-white rounded-full flex items-center justify-center mx-auto -mt-14 mb-4 border-4 border-white shadow-md relative z-30">
@@ -702,8 +730,130 @@
         </div>
     </footer>
 
+    <!-- Modais de Detalhes -->
+    
+    <!-- Modal TI -->
+    <div id="modal-ti" class="modal fixed inset-0 z-[60] flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal('modal-ti')"></div>
+        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden">
+            <div class="bg-tech-DEFAULT p-6 text-white flex justify-between items-center">
+                <h3 class="font-heading text-2xl font-bold"><i class="fas fa-laptop-code mr-2"></i> Tecnologia da Informação</h3>
+                <button onclick="closeModal('modal-ti')" class="text-white/80 hover:text-white text-2xl focus:outline-none">&times;</button>
+            </div>
+            <div class="p-8 max-h-[80vh] overflow-y-auto">
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Com mais de 30 anos de experiência, ofereço uma visão sistêmica e analítica para resolver problemas complexos de infraestrutura e sistemas. Minha atuação foca em eficiência operacional e segurança.
+                </p>
+                <h4 class="font-bold text-gray-900 mb-3 border-l-4 border-tech-accent pl-3">Especialidades:</h4>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Administração de Redes (Unix/Linux/Windows) e Servidores Web.</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Gestão de Banco de Dados (Oracle, PostgreSQL, MySQL).</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Modelagem de Sistemas e Engenharia de Software.</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Suporte Técnico Especializado (Help Desk) para Empresas e Pessoas Físicas (foco em público 40+).</span></li>
+                </ul>
+                <div class="text-right">
+                    <button onclick="closeModal('modal-ti')" class="px-6 py-2 bg-gray-200 text-gray-700 font-bold rounded hover:bg-gray-300 transition">Fechar</button>
+                    <a href="#contato" onclick="closeModal('modal-ti')" class="px-6 py-2 bg-tech-DEFAULT text-white font-bold rounded ml-2 hover:bg-tech-dark transition">Solicitar Consultoria</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Marketing -->
+    <div id="modal-mkt" class="modal fixed inset-0 z-[60] flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal('modal-mkt')"></div>
+        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden">
+            <div class="bg-tech-DEFAULT p-6 text-white flex justify-between items-center">
+                <h3 class="font-heading text-2xl font-bold"><i class="fas fa-bullhorn mr-2"></i> Marketing Digital</h3>
+                <button onclick="closeModal('modal-mkt')" class="text-white/80 hover:text-white text-2xl focus:outline-none">&times;</button>
+            </div>
+            <div class="p-8 max-h-[80vh] overflow-y-auto">
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Minha experiência como empreendedor e gestor de franquias digitais me permitiu desenvolver estratégias práticas para o crescimento de negócios no ambiente online.
+                </p>
+                <h4 class="font-bold text-gray-900 mb-3 border-l-4 border-tech-accent pl-3">Serviços Principais:</h4>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Gestão de Redes Sociais e Criação de Conteúdo.</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Estratégias de Visibilidade para Pequenos e Médios Negócios.</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Criação e Manutenção de Websites Responsivos.</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Registro e Configuração de Domínios Personalizados.</span></li>
+                </ul>
+                <div class="text-right">
+                    <button onclick="closeModal('modal-mkt')" class="px-6 py-2 bg-gray-200 text-gray-700 font-bold rounded hover:bg-gray-300 transition">Fechar</button>
+                    <a href="#contato" onclick="closeModal('modal-mkt')" class="px-6 py-2 bg-tech-DEFAULT text-white font-bold rounded ml-2 hover:bg-tech-dark transition">Falar Sobre Meu Projeto</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Inovação -->
+    <div id="modal-inovacao" class="modal fixed inset-0 z-[60] flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal('modal-inovacao')"></div>
+        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden">
+            <div class="bg-tech-DEFAULT p-6 text-white flex justify-between items-center">
+                <h3 class="font-heading text-2xl font-bold"><i class="fas fa-lightbulb mr-2"></i> Inovação e IA</h3>
+                <button onclick="closeModal('modal-inovacao')" class="text-white/80 hover:text-white text-2xl focus:outline-none">&times;</button>
+            </div>
+            <div class="p-8 max-h-[80vh] overflow-y-auto">
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Com Mestrado em Computação Aplicada e especialização em IA, ajudo a transformar dados em inteligência estratégica. O foco é modernizar processos e preparar sua empresa para o futuro.
+                </p>
+                <h4 class="font-bold text-gray-900 mb-3 border-l-4 border-tech-accent pl-3">Diferenciais:</h4>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Consultoria em IA Generativa (ChatGPT, Gemini, Copilot).</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Gestão Estratégica da Informação e Dados.</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Automação de Processos para Aumento de Eficiência.</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Treinamentos Corporativos em Novas Tecnologias.</span></li>
+                </ul>
+                <div class="text-right">
+                    <button onclick="closeModal('modal-inovacao')" class="px-6 py-2 bg-gray-200 text-gray-700 font-bold rounded hover:bg-gray-300 transition">Fechar</button>
+                    <a href="#contato" onclick="closeModal('modal-inovacao')" class="px-6 py-2 bg-tech-DEFAULT text-white font-bold rounded ml-2 hover:bg-tech-dark transition">Quero Inovar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript para Interatividade -->
     <script>
+        // Funções dos Modais
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                // Pequeno delay para permitir a transição CSS
+                setTimeout(() => {
+                    modal.classList.add('active');
+                }, 10);
+                document.body.style.overflow = 'hidden'; // Impede rolagem do fundo
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.classList.add('hidden'); // Adiciona hidden após a transição
+                }, 300); // Tempo igual ao da transição CSS
+                document.body.style.overflow = ''; // Libera rolagem
+            }
+        }
+
+        // Fechar modal com a tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const activeModals = document.querySelectorAll('.modal.active');
+                activeModals.forEach(modal => {
+                    closeModal(modal.id);
+                });
+            }
+        });
+
+        // Garantir que os modais comecem ocultos (classe hidden do Tailwind não estava no HTML inicial dos modais por segurança, adicionando via JS ou classe direta)
+        // Adicionando classe 'hidden' aos modais no HTML acima para garantir estado inicial correto.
+        document.querySelectorAll('.modal').forEach(modal => modal.classList.add('hidden'));
+
+
         // Menu Mobile Toggle
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
@@ -743,9 +893,16 @@
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 menu.classList.add('hidden'); // Fecha menu mobile se aberto
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                // Verifica se o link é para fechar modal ou navegação
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
             });
         });
         
