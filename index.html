@@ -91,17 +91,6 @@
             transform: scale(1.1);
         }
 
-        /* Estilo para Cards de FAQ (Novo) */
-        .faq-card {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .faq-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-color: #3b82f6;
-        }
-
         /* Modal Animation */
         .modal {
             transition: opacity 0.3s ease-in-out;
@@ -485,172 +474,140 @@
 
     <!-- FAQ Section -->
     <section id="faq" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="font-heading text-3xl font-bold text-gray-900 section-title">Perguntas Frequentes</h2>
-                <p class="mt-4 text-gray-600">Clique nas perguntas abaixo para ver a resposta detalhada.</p>
+                <p class="mt-4 text-gray-600">Tire suas dúvidas sobre como posso ajudar você ou sua empresa.</p>
             </div>
 
-            <!-- Grid de Perguntas (Estilo Cards) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
+            <div class="space-y-4">
                 <!-- Pergunta 1 -->
-                <div class="faq-card bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative group" 
-                     onclick="openFaqModal(this)"
-                     data-question="Como funciona a consultoria técnica?"
-                     data-answer="Realizo um diagnóstico inicial da sua situação atual, identifico gargalos e proponho soluções personalizadas, seja para hardware, software ou processos de TI. O foco é resolver o problema raiz e não apenas os sintomas.">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 text-tech-DEFAULT rounded-full flex items-center justify-center mr-4 group-hover:bg-tech-DEFAULT group-hover:text-white transition">
-                            <i class="fas fa-question text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-900 group-hover:text-tech-accent transition">Como funciona a consultoria técnica?</h3>
-                            <p class="text-xs text-gray-500 mt-2 uppercase tracking-wide font-bold text-tech-accent">Clique para ler a resposta</p>
-                        </div>
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                        <span class="font-medium text-gray-900">Como funciona a consultoria técnica?</span>
+                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-gray-50">
+                        <p class="px-6 py-4 text-gray-600 text-sm">
+                            Realizo um diagnóstico inicial da sua situação atual, identifico gargalos e proponho soluções personalizadas, seja para hardware, software ou processos de TI.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Pergunta 2 -->
-                <div class="faq-card bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative group" 
-                     onclick="openFaqModal(this)"
-                     data-question="Você atende pessoas físicas ou apenas empresas?"
-                     data-answer="Atendo ambos! Tenho serviços de 'Personal Help Desk' focados em profissionais liberais e indivíduos que precisam de suporte tecnológico em casa ou no home office, além da consultoria empresarial completa.">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 text-tech-DEFAULT rounded-full flex items-center justify-center mr-4 group-hover:bg-tech-DEFAULT group-hover:text-white transition">
-                            <i class="fas fa-user-friends text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-900 group-hover:text-tech-accent transition">Você atende pessoas físicas ou apenas empresas?</h3>
-                            <p class="text-xs text-gray-500 mt-2 uppercase tracking-wide font-bold text-tech-accent">Clique para ler a resposta</p>
-                        </div>
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                        <span class="font-medium text-gray-900">Você atende pessoas físicas ou apenas empresas?</span>
+                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-gray-50">
+                        <p class="px-6 py-4 text-gray-600 text-sm">
+                            Atendo ambos! Tenho serviços de "Personal Help Desk" focados em profissionais liberais e indivíduos, além da consultoria empresarial.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Pergunta 3 -->
-                <div class="faq-card bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative group" 
-                     onclick="openFaqModal(this)"
-                     data-question="O que é a Inovação em Unidades de Informação?"
-                     data-answer="É a aplicação de tecnologias modernas para organizar, gerir e dar valor aos dados e informações de uma organização. Isso inclui desde a digitalização de arquivos até a implementação de sistemas inteligentes que facilitam o acesso e a tomada de decisão estratégica.">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 text-tech-DEFAULT rounded-full flex items-center justify-center mr-4 group-hover:bg-tech-DEFAULT group-hover:text-white transition">
-                            <i class="fas fa-lightbulb text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-900 group-hover:text-tech-accent transition">O que é a Inovação em Unidades de Informação?</h3>
-                            <p class="text-xs text-gray-500 mt-2 uppercase tracking-wide font-bold text-tech-accent">Clique para ler a resposta</p>
-                        </div>
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                        <span class="font-medium text-gray-900">O que é a Inovação em Unidades de Informação?</span>
+                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-gray-50">
+                        <p class="px-6 py-4 text-gray-600 text-sm">
+                            É a aplicação de tecnologias modernas para organizar, gerir e dar valor aos dados e informações de uma organização, facilitando o acesso e a tomada de decisão.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Pergunta 4 -->
-                <div class="faq-card bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative group" 
-                     onclick="openFaqModal(this)"
-                     data-question="Você faz manutenção de sites que não foram criados por você?"
-                     data-answer="Sim, posso assumir a manutenção, atualização e otimização de sites existentes. Faço uma análise prévia da estrutura para garantir que ele possa ser atualizado com segurança e permaneça funcional.">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 text-tech-DEFAULT rounded-full flex items-center justify-center mr-4 group-hover:bg-tech-DEFAULT group-hover:text-white transition">
-                            <i class="fas fa-tools text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-900 group-hover:text-tech-accent transition">Você faz manutenção de sites de terceiros?</h3>
-                            <p class="text-xs text-gray-500 mt-2 uppercase tracking-wide font-bold text-tech-accent">Clique para ler a resposta</p>
-                        </div>
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                        <span class="font-medium text-gray-900">Você faz manutenção de sites que não foram criados por você?</span>
+                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-gray-50">
+                        <p class="px-6 py-4 text-gray-600 text-sm">
+                            Sim, posso assumir a manutenção, atualização e otimização de sites existentes, garantindo que eles permaneçam seguros e funcionais.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Pergunta 5 -->
-                <div class="faq-card bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative group" 
-                     onclick="openFaqModal(this)"
-                     data-question="Como funciona o agendamento pelo WhatsApp?"
-                     data-answer="É simples e rápido. Ao clicar no botão de WhatsApp no site, você fala diretamente comigo. Verificamos a disponibilidade na agenda e marcamos um horário para uma conversa inicial ou visita técnica, sem burocracia.">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 text-tech-DEFAULT rounded-full flex items-center justify-center mr-4 group-hover:bg-tech-DEFAULT group-hover:text-white transition">
-                            <i class="fab fa-whatsapp text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-900 group-hover:text-tech-accent transition">Como funciona o agendamento pelo WhatsApp?</h3>
-                            <p class="text-xs text-gray-500 mt-2 uppercase tracking-wide font-bold text-tech-accent">Clique para ler a resposta</p>
-                        </div>
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                        <span class="font-medium text-gray-900">Como funciona o agendamento pelo WhatsApp?</span>
+                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-gray-50">
+                        <p class="px-6 py-4 text-gray-600 text-sm">
+                            É simples e rápido. Ao clicar no botão de WhatsApp no site, você fala diretamente comigo para verificar disponibilidade e agendar um horário.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Pergunta 6 -->
-                <div class="faq-card bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative group" 
-                     onclick="openFaqModal(this)"
-                     data-question="Quais tipos de treinamento em TI você oferece?"
-                     data-answer="Ofereço desde treinamentos básicos de uso de ferramentas de escritório (pacote Office, e-mail, nuvem) até capacitações mais avançadas em segurança digital, uso de ferramentas colaborativas e introdução à IA no ambiente de trabalho.">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 text-tech-DEFAULT rounded-full flex items-center justify-center mr-4 group-hover:bg-tech-DEFAULT group-hover:text-white transition">
-                            <i class="fas fa-chalkboard-teacher text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-900 group-hover:text-tech-accent transition">Quais tipos de treinamento em TI você oferece?</h3>
-                            <p class="text-xs text-gray-500 mt-2 uppercase tracking-wide font-bold text-tech-accent">Clique para ler a resposta</p>
-                        </div>
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                        <span class="font-medium text-gray-900">Quais tipos de treinamento em TI você oferece?</span>
+                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-gray-50">
+                        <p class="px-6 py-4 text-gray-600 text-sm">
+                            Ofereço desde treinamentos básicos de uso de ferramentas de escritório até capacitações mais avançadas em segurança digital e uso de IA no trabalho.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Pergunta 7 -->
-                <div class="faq-card bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative group" 
-                     onclick="openFaqModal(this)"
-                     data-question="Você ajuda com Inteligência Artificial?"
-                     data-answer="Com certeza. A IA é uma das minhas áreas de especialização (MBA e Mestrado). Posso ajudar a integrar ferramentas como ChatGPT, Copilot ou Gemini no seu fluxo de trabalho para automatizar tarefas e aumentar a produtividade.">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 text-tech-DEFAULT rounded-full flex items-center justify-center mr-4 group-hover:bg-tech-DEFAULT group-hover:text-white transition">
-                            <i class="fas fa-robot text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-900 group-hover:text-tech-accent transition">Você ajuda com Inteligência Artificial?</h3>
-                            <p class="text-xs text-gray-500 mt-2 uppercase tracking-wide font-bold text-tech-accent">Clique para ler a resposta</p>
-                        </div>
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                        <span class="font-medium text-gray-900">Você ajuda com Inteligência Artificial?</span>
+                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-gray-50">
+                        <p class="px-6 py-4 text-gray-600 text-sm">
+                            Com certeza. A IA é uma das minhas áreas de foco. Posso ajudar a integrar ferramentas de IA no seu fluxo de trabalho para aumentar a produtividade.
+                        </p>
                     </div>
                 </div>
 
                  <!-- Pergunta 8 -->
-                 <div class="faq-card bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative group" 
-                     onclick="openFaqModal(this)"
-                     data-question="É possível configurar um domínio personalizado para meu e-mail?"
-                     data-answer="Sim! Ter um e-mail como 'seu_nome@suaempresa.com.br' traz muito mais profissionalismo. Eu realizo todo o processo técnico de registro do domínio e configuração dos servidores de e-mail para você.">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 text-tech-DEFAULT rounded-full flex items-center justify-center mr-4 group-hover:bg-tech-DEFAULT group-hover:text-white transition">
-                            <i class="fas fa-at text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-900 group-hover:text-tech-accent transition">Configura domínio personalizado de e-mail?</h3>
-                            <p class="text-xs text-gray-500 mt-2 uppercase tracking-wide font-bold text-tech-accent">Clique para ler a resposta</p>
-                        </div>
+                 <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                        <span class="font-medium text-gray-900">É possível configurar um domínio personalizado para meu e-mail?</span>
+                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-gray-50">
+                        <p class="px-6 py-4 text-gray-600 text-sm">
+                            Sim, a configuração de domínio (ex: seu_nome@suaempresa.com.br) traz profissionalismo e eu realizo toda a configuração técnica necessária.
+                        </p>
                     </div>
                 </div>
 
                  <!-- Pergunta 9 -->
-                 <div class="faq-card bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative group" 
-                     onclick="openFaqModal(this)"
-                     data-question="Você atende em quais regiões?"
-                     data-answer="Atendo presencialmente em São José dos Campos e região (conforme disponibilidade de agenda). Para consultorias, suporte remoto e desenvolvimento web, atendo clientes de todo o Brasil através de ferramentas de videoconferência e acesso remoto.">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 text-tech-DEFAULT rounded-full flex items-center justify-center mr-4 group-hover:bg-tech-DEFAULT group-hover:text-white transition">
-                            <i class="fas fa-map-marker-alt text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-900 group-hover:text-tech-accent transition">Você atende em quais regiões?</h3>
-                            <p class="text-xs text-gray-500 mt-2 uppercase tracking-wide font-bold text-tech-accent">Clique para ler a resposta</p>
-                        </div>
+                 <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                        <span class="font-medium text-gray-900">Você atende em quais regiões?</span>
+                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-gray-50">
+                        <p class="px-6 py-4 text-gray-600 text-sm">
+                            Atendo presencialmente na região (conforme disponibilidade) e remotamente para todo o Brasil, utilizando ferramentas de acesso remoto e videoconferência.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Pergunta 10 -->
-                <div class="faq-card bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative group" 
-                     onclick="openFaqModal(this)"
-                     data-question="Qual é a sua formação?"
-                     data-answer="Sou Mestre em Computação Aplicada, com MBA em Inteligência Artificial Aplicada a Negócios e especializações em Inovação e Engenharia de Software. Tenho mais de 30 anos de experiência prática no mercado de tecnologia.">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 text-tech-DEFAULT rounded-full flex items-center justify-center mr-4 group-hover:bg-tech-DEFAULT group-hover:text-white transition">
-                            <i class="fas fa-graduation-cap text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-900 group-hover:text-tech-accent transition">Qual é a sua formação?</h3>
-                            <p class="text-xs text-gray-500 mt-2 uppercase tracking-wide font-bold text-tech-accent">Clique para ler a resposta</p>
-                        </div>
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                        <span class="font-medium text-gray-900">Qual é a sua formação?</span>
+                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-gray-50">
+                        <p class="px-6 py-4 text-gray-600 text-sm">
+                           Sou Mestre em Computação Aplicada, com MBA em Inteligência Artificial Aplicada a Negócios e especializações em Inovação e Engenharia de Software. Tenho mais de 30 anos de mercado.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -827,8 +784,8 @@
                 </div>
             </div>
         </div>
-    <!-- Modais de Detalhes (Anteriores mantidos acima, adicionando o Modal Genérico de FAQ aqui) -->
-    
+    </div>
+
     <!-- Modal Inovação -->
     <div id="modal-inovacao" class="modal fixed inset-0 z-[60] flex items-center justify-center px-4">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal('modal-inovacao')"></div>
@@ -856,25 +813,6 @@
         </div>
     </div>
 
-    <!-- Modal Genérico para FAQ -->
-    <div id="modal-faq" class="modal fixed inset-0 z-[60] flex items-center justify-center px-4">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal('modal-faq')"></div>
-        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-lg relative z-10 overflow-hidden">
-            <div class="bg-tech-DEFAULT p-6 text-white flex justify-between items-center">
-                <h3 class="font-heading text-xl font-bold" id="modal-faq-title">Pergunta</h3>
-                <button onclick="closeModal('modal-faq')" class="text-white/80 hover:text-white text-2xl focus:outline-none">&times;</button>
-            </div>
-            <div class="p-8">
-                <p class="text-gray-700 text-lg leading-relaxed" id="modal-faq-body">
-                    Resposta...
-                </p>
-                <div class="mt-8 text-right">
-                    <button onclick="closeModal('modal-faq')" class="px-6 py-2 bg-tech-DEFAULT text-white font-bold rounded hover:bg-tech-dark transition">Entendi</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- JavaScript para Interatividade -->
     <script>
         // Funções dos Modais
@@ -882,22 +820,12 @@
             const modal = document.getElementById(modalId);
             if (modal) {
                 modal.classList.remove('hidden');
+                // Pequeno delay para permitir a transição CSS
                 setTimeout(() => {
                     modal.classList.add('active');
                 }, 10);
-                document.body.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden'; // Impede rolagem do fundo
             }
-        }
-
-        // Função Específica para abrir o modal de FAQ dinamicamente
-        function openFaqModal(element) {
-            const question = element.getAttribute('data-question');
-            const answer = element.getAttribute('data-answer');
-            
-            document.getElementById('modal-faq-title').textContent = question;
-            document.getElementById('modal-faq-body').textContent = answer;
-            
-            openModal('modal-faq');
         }
 
         function closeModal(modalId) {
@@ -945,8 +873,8 @@
                 }
             });
 
-        // FAQ Accordion (REMOVIDO - Não é mais necessário com o novo estilo)
-        // function toggleFaq(button) { ... }
+            parent.classList.toggle('faq-active');
+        }
 
         // Enviar E-mail (mailto trick)
         function sendEmail(e) {
