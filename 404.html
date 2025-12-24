@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página não encontrada | Luis Marcelo Achite</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Configuração de Cores (Mesma do index.html) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tech: {
+                            light: '#f3f4f6',
+                            DEFAULT: '#1e3a8a',
+                            dark: '#0f172a',
+                            accent: '#3b82f6',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .bg-pattern {
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.05;
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-700 bg-gray-50 min-h-screen flex flex-col">
+
+    <!-- Navbar Simplificada -->
+    <nav class="bg-white shadow-sm w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
+                        <i class="fa-solid fa-code-branch text-3xl text-tech-DEFAULT"></i>
+                        <div>
+                            <span class="font-heading font-bold text-xl text-gray-900 block leading-none">LUIS MARCELO</span>
+                            <span class="font-heading font-light text-sm text-tech-DEFAULT tracking-widest">ACHITE</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo 404 -->
+    <main class="flex-grow flex items-center justify-center relative overflow-hidden p-6">
+        <!-- Fundo Decorativo -->
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-50 to-blue-50 z-0"></div>
+        <div class="absolute inset-0 bg-pattern z-0"></div>
+
+        <div class="text-center relative z-10 max-w-2xl mx-auto">
+            <!-- Ícone/Animação -->
+            <div class="mb-8 animate-float">
+                <i class="fas fa-robot text-9xl text-tech-DEFAULT opacity-20"></i>
+            </div>
+            
+            <h1 class="font-heading text-8xl font-extrabold text-tech-DEFAULT mb-4 tracking-tighter">404</h1>
+            
+            <h2 class="font-heading text-3xl font-bold text-gray-900 mb-6">Ops! Página não encontrada.</h2>
+            
+            <p class="text-lg text-gray-600 mb-10 leading-relaxed">
+                Parece que você navegou para uma área desconhecida do sistema. 
+                O link que você tentou acessar pode ter sido movido, deletado ou nunca existiu.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <!-- Corrigido: Trocado 'bg-tech-DEFAULT' por 'bg-blue-900' para garantir que o botão apareça azul -->
+                <a href="index.html" class="px-8 py-3.5 bg-blue-900 hover:bg-slate-900 text-white font-bold rounded shadow-lg transition transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                    <i class="fas fa-home"></i> Voltar ao Início
+                </a>
+                <!-- Corrigido: Trocado cores personalizadas por padrão 'blue-900' -->
+                <a href="index.html#contato" class="px-8 py-3.5 border-2 border-blue-900 text-blue-900 font-bold rounded hover:bg-blue-900 hover:text-white transition flex items-center justify-center gap-2">
+                    <i class="fas fa-envelope"></i> Relatar Problema
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Simplificado -->
+    <footer class="bg-tech-dark text-gray-400 py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm">&copy; 2025 Luis Marcelo Achite. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
