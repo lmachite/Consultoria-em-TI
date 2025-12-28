@@ -13,7 +13,6 @@
     <meta name="robots" content="index, follow">
 
     <!-- --- PERFORMANCE: PRECONNECT --- -->
-    <!-- Conecta antecipadamente aos servidores de terceiros para acelerar o download -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -35,233 +34,437 @@
 
     <link rel="canonical" href="https://www.lmachite.com.br/">
     
-    <!-- Tailwind CSS (via CDN) - OBS: Para produção ideal, recomenda-se gerar o CSS estático -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome (Carregamento otimizado com media query trick para não bloquear renderização se possível, mas mantendo link padrão para compatibilidade) -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 
-    <!-- Configuração de Cores Personalizadas -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        tech: {
-                            light: '#f3f4f6',   /* Cinza Claro */
-                            DEFAULT: '#1e3a8a', /* Azul Escuro Institucional */
-                            dark: '#0f172a',    /* Slate Escuro */
-                            accent: '#3b82f6',  /* Azul Brilhante */
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Roboto', 'sans-serif'],
-                        heading: ['Montserrat', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
-        /* Estilos personalizados */
-        html {
-            scroll-behavior: smooth;
-        }
+        /* --- CSS PURO (Sem Tailwind) PARA PERFORMANCE --- */
         
-        .hero-bg {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-            position: relative;
-            overflow: hidden;
+        :root {
+            /* Cores definidas no seu projeto */
+            --color-tech-light: #f3f4f6;
+            --color-tech-default: #1e3a8a; /* Azul Escuro */
+            --color-tech-dark: #0f172a;    /* Slate Escuro */
+            --color-tech-accent: #3b82f6;  /* Azul Brilhante */
+            --color-green: #22c55e;
+            --color-green-hover: #16a34a;
+            --color-white: #ffffff;
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-900: #111827;
+            
+            /* Fontes */
+            --font-sans: 'Roboto', sans-serif;
+            --font-heading: 'Montserrat', sans-serif;
+            
+            /* Layout */
+            --max-width: 1280px;
+            --nav-height: 80px;
         }
 
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
-            opacity: 0.1;
-        }
+        /* Reset Básico */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-sans); color: var(--color-gray-700); background-color: var(--color-gray-50); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+        a { text-decoration: none; color: inherit; transition: color 0.2s; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        button { cursor: pointer; border: none; font-family: inherit; }
 
+        /* Utilitários */
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1rem; }
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .font-bold { font-weight: 700; }
+        .section-padding { padding-top: 5rem; padding-bottom: 5rem; }
+        
+        /* Títulos de Seção */
+        .section-header { text-align: center; margin-bottom: 4rem; }
         .section-title {
+            font-family: var(--font-heading);
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--color-gray-900);
             position: relative;
             display: inline-block;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
-        
         .section-title::after {
             content: '';
             position: absolute;
             width: 60px;
             height: 4px;
-            background-color: #3b82f6;
+            background-color: var(--color-tech-accent);
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 2px;
         }
+        .section-subtitle { color: var(--color-gray-600); max-width: 42rem; margin: 0 auto; }
 
-        /* Cards de Área de Atuação */
-        .area-card {
-            transition: all 0.4s ease;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .area-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .area-card img {
-            transition: transform 0.5s ease;
-        }
-        .area-card:hover img {
-            transform: scale(1.1);
-        }
-
-        /* Modal Animation */
-        .modal {
-            transition: opacity 0.3s ease-in-out;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .modal.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .modal-content {
-            transform: scale(0.95);
-            transition: transform 0.3s ease-in-out;
-        }
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        /* Efeito de hover nos cards de serviço */
-        .service-card {
+        /* Botões */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 2rem;
+            font-weight: 700;
+            border-radius: 0.375rem;
             transition: all 0.3s ease;
+            text-align: center;
         }
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            border-color: #3b82f6;
+        .btn-primary {
+            background-color: var(--color-tech-accent);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .btn-primary:hover { background-color: #2563eb; transform: translateY(-2px); }
+        
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+        }
+        .btn-outline:hover { background-color: white; color: var(--color-tech-default); }
+        
+        .btn-whatsapp {
+            background-color: var(--color-green);
+            color: white;
+            border-radius: 9999px;
+            padding: 0.625rem 1.25rem;
+            gap: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        .btn-whatsapp:hover { background-color: var(--color-green-hover); }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: white;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--nav-height);
+            z-index: 50;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .logo { display: flex; align-items: center; gap: 0.5rem; }
+        .logo i { font-size: 1.875rem; color: var(--color-tech-default); }
+        .logo-text span { display: block; line-height: 1; }
+        .logo-title { font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem; color: var(--color-gray-900); }
+        .logo-subtitle { font-family: var(--font-heading); font-weight: 300; font-size: 0.875rem; color: var(--color-tech-default); letter-spacing: 0.1em; }
+        
+        .nav-menu { display: none; align-items: center; gap: 2rem; }
+        .nav-link { color: var(--color-gray-600); font-weight: 500; }
+        .nav-link:hover { color: var(--color-tech-default); }
+        
+        .mobile-btn { display: block; font-size: 1.5rem; color: var(--color-gray-600); background: none; }
+
+        @media(min-width: 768px) {
+            .nav-menu { display: flex; }
+            .mobile-btn { display: none; }
         }
 
-        /* Accordion FAQ */
-        .faq-content {
-            max-height: 0;
+        /* Menu Mobile Dropdown */
+        .mobile-menu {
+            position: absolute;
+            top: var(--nav-height);
+            left: 0; right: 0;
+            background: white;
+            border-top: 1px solid var(--color-gray-100);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            padding: 1rem;
+        }
+        .mobile-menu a { display: block; padding: 0.75rem 1rem; color: var(--color-gray-700); font-weight: 500; border-radius: 0.375rem; }
+        .mobile-menu a:hover { background-color: var(--color-gray-50); color: var(--color-tech-default); }
+        .mobile-menu .btn-mobile-wa { background-color: var(--color-green); color: white; text-align: center; margin-top: 1rem; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(135deg, var(--color-tech-dark) 0%, var(--color-tech-default) 100%);
+            position: relative;
+            padding-top: calc(var(--nav-height) + 5rem);
+            padding-bottom: 7rem;
+            color: white;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
         }
-        .faq-active .faq-content {
-            max-height: 500px;
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.1;
         }
-        .faq-active .faq-icon {
-            transform: rotate(180deg);
-        }
-
-        /* Foto de perfil */
-        .profile-img-container {
+        .hero-grid {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
             position: relative;
             z-index: 10;
         }
-
-        /* Parallax Background */
-        .bg-fixed-tech {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+        .hero-text { text-align: center; }
+        .hero-badge {
+            display: inline-block; padding: 0.25rem 1rem; border: 1px solid #60a5fa; 
+            border-radius: 9999px; background: rgba(30, 58, 138, 0.5); 
+            font-size: 0.875rem; font-weight: 600; text-transform: uppercase; color: #bfdbfe; margin-bottom: 1.5rem;
+            backdrop-filter: blur(4px);
         }
+        .hero h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; }
+        .hero h1 span { color: #60a5fa; }
+        .hero p { font-size: 1.125rem; color: #d1d5db; margin-bottom: 2rem; max-width: 40rem; margin-left: auto; margin-right: auto; }
+        .hero-actions { display: flex; flex-direction: column; gap: 1rem; justify-content: center; }
+        
+        .hero-image { display: flex; justify-content: center; }
+        .hero-img-box {
+            position: relative; width: 16rem; /* Mobile */
+        }
+        .hero-img-box img {
+            border-radius: 0.5rem;
+            border: 4px solid white;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            width: 100%; height: auto;
+        }
+
+        @media(min-width: 1024px) {
+            .hero-grid { grid-template-columns: 1fr 1fr; text-align: left; }
+            .hero-text { text-align: left; }
+            .hero p { margin-left: 0; }
+            .hero-actions { flex-direction: row; justify-content: flex-start; }
+            .hero-img-box { width: 24rem; }
+        }
+
+        /* --- AREAS (CARDS) --- */
+        .cards-grid {
+            display: grid; grid-template-columns: 1fr; gap: 2rem;
+        }
+        @media(min-width: 768px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .card {
+            background: white; border-radius: 0.75rem; overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border: 1px solid var(--color-gray-100);
+            transition: all 0.4s ease; cursor: pointer;
+        }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        
+        .card-img-wrap { height: 12rem; position: relative; overflow: hidden; }
+        .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .card-overlay { position: absolute; inset: 0; background: rgba(30, 58, 138, 0.4); z-index: 10; }
+        .card:hover .card-img-wrap img { transform: scale(1.1); }
+        .card-badge {
+            position: absolute; bottom: 1rem; right: 1rem; z-index: 20;
+            background: rgba(255,255,255,0.9); color: var(--color-tech-default);
+            padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700;
+        }
+
+        .card-body { padding: 2rem; text-align: center; position: relative; z-index: 20; background: white; }
+        .card-icon {
+            width: 3rem; height: 3rem; background: var(--color-tech-default); color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: -3.5rem auto 1rem; border: 4px solid white; position: relative; z-index: 30;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .card h3 { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--color-gray-900); }
+        .card p { font-size: 0.875rem; color: var(--color-gray-600); }
+
+        /* --- SERVIÇOS --- */
+        .services-grid {
+            display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+        }
+        @media(min-width: 768px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+        @media(min-width: 1024px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .service-item {
+            background: white; padding: 1.5rem; border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .service-item:hover { transform: translateY(-5px); border-left-color: var(--color-tech-accent); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .service-flex { display: flex; align-items: flex-start; }
+        .service-flex i { color: var(--color-tech-accent); font-size: 1.25rem; margin-right: 1rem; margin-top: 0.25rem; }
+        .service-flex h4 { font-weight: 700; font-size: 1.125rem; color: var(--color-gray-900); }
+        .service-flex p { font-size: 0.875rem; color: var(--color-gray-600); margin-top: 0.5rem; }
+
+        /* --- TECH DIVIDER --- */
+        .tech-divider {
+            padding: 6rem 0;
+            background-image: url('images/photo-1677442136019-21780ecad995.jpg?auto=format&fit=crop&q=80&w=1600');
+            background-attachment: fixed; background-size: cover; background-position: center;
+            position: relative; text-align: center; color: white;
+        }
+        .tech-overlay { position: absolute; inset: 0; background: rgba(30, 58, 138, 0.8); }
+        .tech-content { position: relative; z-index: 10; }
+        .tech-content h2 { font-family: var(--font-heading); font-size: 2.25rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .tech-content p { font-size: 1.25rem; color: #bfdbfe; max-width: 48rem; margin: 0 auto 2rem; }
+
+        /* --- BLOG / YOUTUBE --- */
+        .content-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        @media(min-width: 768px) { .content-grid { grid-template-columns: 1fr 1fr; } }
+        
+        .content-box {
+            position: relative; border-radius: 1rem; overflow: hidden; height: 16rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); group: ;
+        }
+        .content-box img { width: 100%; height: 100%; object-fit: cover; }
+        .content-box-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.6); z-index: 10; transition: background 0.3s; }
+        .content-box:hover .content-box-overlay { background: rgba(0,0,0,0.5); }
+        .content-info {
+            position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center; color: white; padding: 1.5rem;
+        }
+        .content-info i { font-size: 3rem; background: white; padding: 0.5rem; border-radius: 50%; margin-bottom: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .yt-icon { color: #dc2626; } .rss-icon { color: #f97316; }
+
+        /* --- FAQ --- */
+        .faq-item { background: white; border-radius: 0.5rem; border: 1px solid var(--color-gray-100); margin-bottom: 1rem; overflow: hidden; }
+        .faq-btn {
+            width: 100%; padding: 1rem 1.5rem; text-align: left; display: flex; justify-content: space-between;
+            align-items: center; background: white; font-weight: 500; color: var(--color-gray-900);
+        }
+        .faq-btn:hover { background-color: var(--color-gray-50); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: var(--color-gray-50); }
+        .faq-answer p { padding: 1rem 1.5rem; font-size: 0.875rem; color: var(--color-gray-600); }
+        .faq-active .faq-answer { max-height: 500px; }
+        .faq-active .faq-icon { transform: rotate(180deg); }
+        .faq-icon { transition: transform 0.3s; color: var(--color-tech-accent); }
+
+        /* --- CONTATO --- */
+        .contact {
+            padding: 5rem 0; background-image: url('images/photo-1519389950473-47ba0277781c.jpg?auto=format&fit=crop&q=80&w=1600');
+            background-attachment: fixed; background-size: cover; position: relative; color: white;
+        }
+        .contact-overlay { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.95); }
+        .contact-grid { display: grid; gap: 3rem; position: relative; z-index: 10; }
+        @media(min-width: 768px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+        
+        .contact-details h2 { font-family: var(--font-heading); font-size: 1.875rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .contact-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .contact-row { display: flex; align-items: center; gap: 1rem; }
+        .icon-circle { width: 3rem; height: 3rem; background: rgba(30, 58, 138, 0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+        
+        .contact-form-box { background: white; padding: 2rem; border-radius: 0.75rem; color: var(--color-gray-700); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem; }
+        .form-control { width: 100%; padding: 0.5rem 1rem; border: 1px solid #d1d5db; border-radius: 0.25rem; outline: none; transition: border-color 0.2s; }
+        .form-control:focus { border-color: var(--color-tech-accent); box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); }
+        .btn-submit { width: 100%; padding: 0.75rem; background: var(--color-tech-default); color: white; font-weight: 700; border-radius: 0.25rem; transition: transform 0.2s; }
+        .btn-submit:hover { transform: scale(1.02); background: var(--color-tech-dark); }
+
+        /* --- FOOTER --- */
+        .footer { background: var(--color-tech-dark); color: #9ca3af; padding: 3rem 0; border-top: 1px solid #1f2937; }
+        .footer-flex { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; }
+        @media(min-width: 768px) { .footer-flex { flex-direction: row; justify-content: space-between; text-align: left; } }
+        .social-links { display: flex; gap: 1.5rem; font-size: 1.5rem; }
+        .social-links a:hover { color: white; }
+
+        /* --- MODAL --- */
+        .modal {
+            position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center;
+            padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .modal.active { opacity: 1; pointer-events: auto; }
+        .modal-bg { position: absolute; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
+        .modal-panel {
+            background: white; width: 100%; max-width: 42rem; border-radius: 1rem; position: relative; z-index: 10;
+            overflow: hidden; transform: scale(0.95); transition: transform 0.3s; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+        .modal.active .modal-panel { transform: scale(1); }
+        .modal-header { background: var(--color-tech-default); padding: 1.5rem; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; }
+        .close-modal { color: rgba(255,255,255,0.8); font-size: 1.5rem; background: none; }
+        .close-modal:hover { color: white; }
+        .modal-body { padding: 2rem; max-height: 80vh; overflow-y: auto; }
+        .modal-body ul li { display: flex; align-items: flex-start; margin-bottom: 0.75rem; }
+        .modal-body ul li i { color: var(--color-green); margin-top: 0.25rem; margin-right: 0.75rem; }
+        .modal-footer { text-align: right; margin-top: 2rem; }
+        .btn-close { background: #e5e7eb; color: var(--color-gray-700); padding: 0.5rem 1.5rem; border-radius: 0.25rem; font-weight: 700; }
+        .btn-action { background: var(--color-tech-default); color: white; padding: 0.5rem 1.5rem; border-radius: 0.25rem; font-weight: 700; margin-left: 0.5rem; }
+
     </style>
 </head>
-<body class="font-sans text-gray-700 bg-gray-50 antialiased">
+<body>
 
     <!-- Navegação -->
-    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex items-center">
-                    <a href="#" class="flex-shrink-0 flex items-center gap-2">
-                        <i class="fa-solid fa-code-branch text-3xl text-tech-DEFAULT"></i>
-                        <div>
-                            <span class="font-heading font-bold text-xl text-gray-900 block leading-none">LUIS MARCELO</span>
-                            <span class="font-heading font-light text-sm text-tech-DEFAULT tracking-widest">ACHITE</span>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- Menu Desktop -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#sobre" class="text-gray-600 hover:text-tech-DEFAULT font-medium transition">Sobre</a>
-                    <a href="#areas" class="text-gray-600 hover:text-tech-DEFAULT font-medium transition">Áreas</a>
-                    <a href="#servicos" class="text-gray-600 hover:text-tech-DEFAULT font-medium transition">Serviços</a>
-                    <a href="#faq" class="text-gray-600 hover:text-tech-DEFAULT font-medium transition">FAQ</a>
-                    <a href="#blog" class="text-gray-600 hover:text-tech-DEFAULT font-medium transition">Conteúdo</a>
-                    <a href="#contato" class="px-5 py-2.5 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition flex items-center gap-2 shadow-lg">
-                        <i class="fab fa-whatsapp"></i> Agendar Agora
-                    </a>
-                </div>
-
-                <!-- Botão Menu Mobile -->
-                <div class="flex items-center md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none p-2">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <a href="#" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-code-branch"></i>
+                    <div class="logo-text">
+                        <span class="logo-title">LUIS MARCELO</span>
+                        <span class="logo-subtitle">ACHITE</span>
+                    </div>
+                </a>
             </div>
+            
+            <!-- Menu Desktop -->
+            <div class="nav-menu">
+                <a href="#sobre" class="nav-link">Sobre</a>
+                <a href="#areas" class="nav-link">Áreas</a>
+                <a href="#servicos" class="nav-link">Serviços</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="#blog" class="nav-link">Conteúdo</a>
+                <a href="#contato" class="btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Agendar Agora
+                </a>
+            </div>
+
+            <!-- Botão Menu Mobile -->
+            <button id="mobile-menu-btn" class="mobile-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
 
         <!-- Menu Mobile -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#sobre" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-tech-DEFAULT hover:bg-gray-50">Sobre</a>
-                <a href="#areas" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-tech-DEFAULT hover:bg-gray-50">Áreas de Atuação</a>
-                <a href="#servicos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-tech-DEFAULT hover:bg-gray-50">Serviços</a>
-                <a href="#faq" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-tech-DEFAULT hover:bg-gray-50">Perguntas Frequentes</a>
-                <a href="#contato" class="block px-3 py-2 mt-4 text-center rounded-md text-base font-bold bg-green-500 text-white hover:bg-green-600">
-                    <i class="fab fa-whatsapp"></i> Agendar WhatsApp
-                </a>
-            </div>
+        <div id="mobile-menu" class="mobile-menu hidden">
+            <a href="#sobre">Sobre</a>
+            <a href="#areas">Áreas de Atuação</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#faq">Perguntas Frequentes</a>
+            <a href="#contato" class="btn-mobile-wa">
+                <i class="fab fa-whatsapp"></i> Agendar WhatsApp
+            </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-bg pt-32 pb-20 lg:pt-40 lg:pb-28 text-white relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center gap-12">
+    <section id="home" class="hero">
+        <div class="container hero-grid">
             
             <!-- Texto Hero -->
-            <div class="w-full lg:w-1/2 text-center lg:text-left z-10">
-                <div class="inline-block px-4 py-1 mb-4 border border-blue-400 rounded-full bg-blue-900/50 backdrop-blur-sm">
-                    <span class="text-sm font-semibold tracking-wide uppercase text-blue-200">30+ Anos de Experiência</span>
-                </div>
-                <!-- H1 Otimizado para SEO -->
-                <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-                    Soluções Inteligentes em <span class="text-blue-400">Tecnologia</span> e Inovação
+            <div class="hero-text">
+                <div class="hero-badge">30+ Anos de Experiência</div>
+                <h1>
+                    Soluções Inteligentes em <span>Tecnologia</span> e Inovação
                 </h1>
-                <p class="text-lg text-gray-300 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                <p>
                     Mestre em Computação Aplicada. Transformo desafios complexos em resultados mensuráveis através de TI, Marketing Digital e Gestão da Informação.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <a href="#servicos" class="px-8 py-3.5 bg-tech-accent hover:bg-blue-600 text-white font-bold rounded shadow-lg transition transform hover:-translate-y-1">
+                <div class="hero-actions">
+                    <a href="#servicos" class="btn btn-primary">
                         Conheça meus serviços
                     </a>
-                    <a href="https://wa.me/5512991164273" target="_blank" rel="noopener noreferrer" class="px-8 py-3.5 border-2 border-white text-white font-bold rounded hover:bg-white hover:text-tech-DEFAULT transition">
+                    <a href="https://wa.me/5512991164273" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
                         Fale comigo agora
                     </a>
                 </div>
             </div>
 
             <!-- Imagem Hero -->
-            <div class="w-full lg:w-1/2 flex justify-center z-10">
-                <div class="profile-img-container relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-                    <!-- Otimização: fetchpriority high para carregar a imagem principal o mais rápido possível -->
+            <div class="hero-image">
+                <div class="hero-img-box">
+                    <!-- Mantendo a imagem .avif do seu arquivo -->
                     <img src="images/foto-profissional.avif" 
                          alt="Luis Marcelo Achite - Consultor de TI" 
                          fetchpriority="high"
-                         class="w-full h-full object-cover rounded-lg shadow-2x2 border-4 border-white"
                          onerror="this.src='https://via.placeholder.com/400x400?text=Luis+Marcelo+Achite'; this.style.objectFit='contain';">
                 </div>
             </div>
@@ -269,71 +472,71 @@
     </section>
 
     <!-- Sobre / Áreas de Destaque -->
-    <section id="areas" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="font-heading text-3xl font-bold text-gray-900 section-title">Minhas Áreas de Atuação</h2>
-                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Clique nos cards abaixo para ver detalhes sobre como atuo em cada área.</p>
+    <section id="areas" class="section-padding" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Minhas Áreas de Atuação</h2>
+                <p class="section-subtitle">Clique nos cards abaixo para ver detalhes sobre como atuo em cada área.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="cards-grid">
                 <!-- Card 1: TI -->
-                <div class="area-card bg-white rounded-xl shadow-lg border border-gray-100 group" onclick="openModal('modal-ti')">
-                    <div class="h-48 overflow-hidden relative">
-                         <div class="absolute inset-0 bg-blue-900/40 group-hover:bg-blue-900/20 transition z-10"></div>
-                        <!-- Otimização: loading="lazy" -->
+                <div class="card" onclick="openModal('modal-ti')">
+                    <div class="card-img-wrap">
+                         <div class="card-overlay"></div>
+                        <!-- Imagem .jpg nova -->
                         <img src="images/photo-1550751827-4bd374c3f58b.jpg?auto=format&fit=crop&q=80&w=800" 
-                             alt="Serviços de Tecnologia da Informação" loading="lazy" class="w-full h-full object-cover">
-                        <div class="absolute bottom-4 right-4 z-20 bg-white/90 text-tech-DEFAULT px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                             alt="Serviços de Tecnologia da Informação" loading="lazy">
+                        <div class="card-badge">
                             <i class="fas fa-plus mr-1"></i> Saiba Mais
                         </div>
                     </div>
-                    <div class="p-8 text-center relative z-20 bg-white">
-                        <div class="w-12 h-12 bg-tech-DEFAULT text-white rounded-full flex items-center justify-center mx-auto -mt-14 mb-4 border-4 border-white shadow-md relative z-30">
+                    <div class="card-body">
+                        <div class="card-icon">
                             <i class="fas fa-laptop-code text-xl"></i>
                         </div>
-                        <h3 class="font-heading text-xl font-bold mb-3 text-gray-900">Tecnologia da Informação</h3>
-                        <p class="text-gray-600 text-sm">Infraestrutura robusta, segurança de dados e otimização de sistemas para garantir a continuidade do seu negócio.</p>
+                        <h3>Tecnologia da Informação</h3>
+                        <p>Infraestrutura robusta, segurança de dados e otimização de sistemas para garantir a continuidade do seu negócio.</p>
                     </div>
                 </div>
 
                 <!-- Card 2: Marketing -->
-                <div class="area-card bg-white rounded-xl shadow-lg border border-gray-100 group" onclick="openModal('modal-mkt')">
-                    <div class="h-48 overflow-hidden relative">
-                        <div class="absolute inset-0 bg-blue-900/40 group-hover:bg-blue-900/20 transition z-10"></div>
-                        <!-- Otimização: loading="lazy" -->
+                <div class="card" onclick="openModal('modal-mkt')">
+                    <div class="card-img-wrap">
+                        <div class="card-overlay"></div>
+                        <!-- Imagem .jpg nova -->
                         <img src="images/photo-1460925895917-afdab827c52f.jpg?auto=format&fit=crop&q=80&w=800" 
-                             alt="Consultoria em Marketing Digital" loading="lazy" class="w-full h-full object-cover">
-                        <div class="absolute bottom-4 right-4 z-20 bg-white/90 text-tech-DEFAULT px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                             alt="Consultoria em Marketing Digital" loading="lazy">
+                        <div class="card-badge">
                             <i class="fas fa-plus mr-1"></i> Saiba Mais
                         </div>
                     </div>
-                    <div class="p-8 text-center relative z-20 bg-white">
-                        <div class="w-12 h-12 bg-tech-DEFAULT text-white rounded-full flex items-center justify-center mx-auto -mt-14 mb-4 border-4 border-white shadow-md relative z-30">
+                    <div class="card-body">
+                        <div class="card-icon">
                             <i class="fas fa-bullhorn text-xl"></i>
                         </div>
-                        <h3 class="font-heading text-xl font-bold mb-3 text-gray-900">Marketing Digital</h3>
-                        <p class="text-gray-600 text-sm">Estratégias para aumentar sua visibilidade online, gestão de redes sociais e fortalecimento de marca.</p>
+                        <h3>Marketing Digital</h3>
+                        <p>Estratégias para aumentar sua visibilidade online, gestão de redes sociais e fortalecimento de marca.</p>
                     </div>
                 </div>
 
                 <!-- Card 3: Inovação -->
-                <div class="area-card bg-white rounded-xl shadow-lg border border-gray-100 group" onclick="openModal('modal-inovacao')">
-                    <div class="h-48 overflow-hidden relative">
-                        <div class="absolute inset-0 bg-blue-900/40 group-hover:bg-blue-900/20 transition z-10"></div>
-                        <!-- Otimização: loading="lazy" -->
+                <div class="card" onclick="openModal('modal-inovacao')">
+                    <div class="card-img-wrap">
+                        <div class="card-overlay"></div>
+                        <!-- Imagem .jpg nova -->
                         <img src="images/photo-1620712943543-bcc4688e7485.jpg?auto=format&fit=crop&q=80&w=800" 
-                             alt="Inovação e Inteligência Artificial" loading="lazy" class="w-full h-full object-cover">
-                        <div class="absolute bottom-4 right-4 z-20 bg-white/90 text-tech-DEFAULT px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                             alt="Inovação e Inteligência Artificial" loading="lazy">
+                        <div class="card-badge">
                             <i class="fas fa-plus mr-1"></i> Saiba Mais
                         </div>
                     </div>
-                    <div class="p-8 text-center relative z-20 bg-white">
-                        <div class="w-12 h-12 bg-tech-DEFAULT text-white rounded-full flex items-center justify-center mx-auto -mt-14 mb-4 border-4 border-white shadow-md relative z-30">
+                    <div class="card-body">
+                        <div class="card-icon">
                             <i class="fas fa-lightbulb text-xl"></i>
                         </div>
-                        <h3 class="font-heading text-xl font-bold mb-3 text-gray-900">Inovação em Unidades de Informação</h3>
-                        <p class="text-gray-600 text-sm">Gestão estratégica da informação, organização de dados e aplicação de IA para tomada de decisão.</p>
+                        <h3>Inovação em Unidades de Informação</h3>
+                        <p>Gestão estratégica da informação, organização de dados e aplicação de IA para tomada de decisão.</p>
                     </div>
                 </div>
             </div>
@@ -341,99 +544,99 @@
     </section>
 
     <!-- Meus Serviços -->
-    <section id="servicos" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="block text-tech-accent font-bold tracking-wider uppercase text-sm">O que ofereço</span>
-                <h2 class="font-heading text-3xl font-bold text-gray-900 mt-2 section-title">Meus Serviços Especializados</h2>
+    <section id="servicos" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span style="display:block; text-transform: uppercase; font-weight: 700; font-size: 0.875rem; color: var(--color-tech-accent); letter-spacing: 0.05em;">O que ofereço</span>
+                <h2 class="section-title" style="margin-top: 0.5rem;">Meus Serviços Especializados</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="services-grid">
                 
-                <div class="service-card bg-white p-6 rounded-lg shadow-sm border-l-4 border-transparent hover:border-tech-accent">
-                    <div class="flex items-start">
-                        <i class="fas fa-search text-tech-accent text-xl mt-1 mr-4"></i>
+                <div class="service-item">
+                    <div class="service-flex">
+                        <i class="fas fa-search"></i>
                         <div>
-                            <h4 class="font-bold text-lg text-gray-900">Consultoria Técnica</h4>
-                            <p class="text-gray-500 text-sm mt-2">Diagnóstico completo e soluções para seus desafios tecnológicos.</p>
+                            <h4>Consultoria Técnica</h4>
+                            <p>Diagnóstico completo e soluções para seus desafios tecnológicos.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="service-card bg-white p-6 rounded-lg shadow-sm border-l-4 border-transparent hover:border-tech-accent">
-                    <div class="flex items-start">
-                        <i class="fas fa-server text-tech-accent text-xl mt-1 mr-4"></i>
+                <div class="service-item">
+                    <div class="service-flex">
+                        <i class="fas fa-server"></i>
                         <div>
-                            <h4 class="font-bold text-lg text-gray-900">Otimização de Infraestrutura</h4>
-                            <p class="text-gray-500 text-sm mt-2">Melhoria de performance de redes, servidores e sistemas.</p>
+                            <h4>Otimização de Infraestrutura</h4>
+                            <p>Melhoria de performance de redes, servidores e sistemas.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="service-card bg-white p-6 rounded-lg shadow-sm border-l-4 border-transparent hover:border-tech-accent">
-                    <div class="flex items-start">
-                        <i class="fas fa-headset text-tech-accent text-xl mt-1 mr-4"></i>
+                <div class="service-item">
+                    <div class="service-flex">
+                        <i class="fas fa-headset"></i>
                         <div>
-                            <h4 class="font-bold text-lg text-gray-900">Personal "HELP DESK"</h4>
-                            <p class="text-gray-500 text-sm mt-2">Suporte técnico personalizado para resolver problemas do dia a dia.</p>
+                            <h4>Personal "HELP DESK"</h4>
+                            <p>Suporte técnico personalizado para resolver problemas do dia a dia.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="service-card bg-white p-6 rounded-lg shadow-sm border-l-4 border-transparent hover:border-tech-accent">
-                    <div class="flex items-start">
-                        <i class="fas fa-chalkboard-teacher text-tech-accent text-xl mt-1 mr-4"></i>
+                <div class="service-item">
+                    <div class="service-flex">
+                        <i class="fas fa-chalkboard-teacher"></i>
                         <div>
-                            <h4 class="font-bold text-lg text-gray-900">Treinamento em TI</h4>
-                            <p class="text-gray-500 text-sm mt-2">Capacitação de equipes e indivíduos em ferramentas digitais.</p>
+                            <h4>Treinamento em TI</h4>
+                            <p>Capacitação de equipes e indivíduos em ferramentas digitais.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="service-card bg-white p-6 rounded-lg shadow-sm border-l-4 border-transparent hover:border-tech-accent">
-                    <div class="flex items-start">
-                        <i class="fas fa-globe text-tech-accent text-xl mt-1 mr-4"></i>
+                <div class="service-item">
+                    <div class="service-flex">
+                        <i class="fas fa-globe"></i>
                         <div>
-                            <h4 class="font-bold text-lg text-gray-900">Criação de Websites</h4>
-                            <p class="text-gray-500 text-sm mt-2">Desenvolvimento e manutenção de sites profissionais e responsivos.</p>
+                            <h4>Criação de Websites</h4>
+                            <p>Desenvolvimento e manutenção de sites profissionais e responsivos.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="service-card bg-white p-6 rounded-lg shadow-sm border-l-4 border-transparent hover:border-tech-accent">
-                    <div class="flex items-start">
-                        <i class="fas fa-link text-tech-accent text-xl mt-1 mr-4"></i>
+                <div class="service-item">
+                    <div class="service-flex">
+                        <i class="fas fa-link"></i>
                         <div>
-                            <h4 class="font-bold text-lg text-gray-900">Domínio Personalizado</h4>
-                            <p class="text-gray-500 text-sm mt-2">Registro e vinculação de domínios para sua marca na internet.</p>
+                            <h4>Domínio Personalizado</h4>
+                            <p>Registro e vinculação de domínios para sua marca na internet.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="service-card bg-white p-6 rounded-lg shadow-sm border-l-4 border-transparent hover:border-tech-accent">
-                    <div class="flex items-start">
-                        <i class="fas fa-share-alt text-tech-accent text-xl mt-1 mr-4"></i>
+                <div class="service-item">
+                    <div class="service-flex">
+                        <i class="fas fa-share-alt"></i>
                         <div>
-                            <h4 class="font-bold text-lg text-gray-900">Gestão de Redes Sociais</h4>
-                            <p class="text-gray-500 text-sm mt-2">Planejamento e gerenciamento para crescimento de audiência.</p>
+                            <h4>Gestão de Redes Sociais</h4>
+                            <p>Planejamento e gerenciamento para crescimento de audiência.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="service-card bg-white p-6 rounded-lg shadow-sm border-l-4 border-transparent hover:border-tech-accent">
-                    <div class="flex items-start">
-                        <i class="fas fa-robot text-tech-accent text-xl mt-1 mr-4"></i>
+                <div class="service-item">
+                    <div class="service-flex">
+                        <i class="fas fa-robot"></i>
                         <div>
-                            <h4 class="font-bold text-lg text-gray-900">Consultoria IA & Inovação</h4>
-                            <p class="text-gray-500 text-sm mt-2">Implementação de Inteligência Artificial para modernizar processos.</p>
+                            <h4>Consultoria IA & Inovação</h4>
+                            <p>Implementação de Inteligência Artificial para modernizar processos.</p>
                         </div>
                     </div>
                 </div>
 
             </div>
             
-            <div class="mt-12 text-center">
-                <a href="#contato" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-tech-DEFAULT hover:bg-tech-dark transition">
+            <div class="text-center" style="margin-top: 3rem;">
+                <a href="#contato" class="btn btn-primary" style="background-color: var(--color-tech-default);">
                     Solicitar Orçamento
                 </a>
             </div>
@@ -441,57 +644,51 @@
     </section>
 
     <!-- Tech Divider Section -->
-    <section class="py-24 bg-fixed-tech relative" style="background-image: url('images/photo-1677442136019-21780ecad995.jpg?auto=format&fit=crop&q=80&w=1600');">
-        <div class="absolute inset-0 bg-blue-900/80"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
-                O Futuro é Agora
-            </h2>
-            <p class="text-xl text-blue-100 max-w-3xl mx-auto mb-8">
+    <section class="tech-divider">
+        <div class="tech-overlay"></div>
+        <div class="container tech-content">
+            <h2>O Futuro é Agora</h2>
+            <p>
                 "A tecnologia não é apenas sobre computadores, é sobre capacitar pessoas e transformar negócios através da inteligência."
             </p>
-            <a href="#contato" class="inline-block px-8 py-3 bg-transparent border-2 border-white text-white font-bold rounded hover:bg-white hover:text-tech-DEFAULT transition">
+            <a href="#contato" class="btn btn-outline">
                 Inove Comigo
             </a>
         </div>
     </section>
 
     <!-- Seção de Conteúdo (YouTube e Blog) -->
-    <section id="blog" class="py-20 bg-white border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-             <div class="text-center mb-16">
-                <h2 class="font-heading text-3xl font-bold text-gray-900 section-title">Conteúdo e Conhecimento</h2>
-                <p class="mt-4 text-gray-600">Acompanhe minhas publicações e vídeos sobre o mundo da tecnologia.</p>
+    <section id="blog" class="section-padding" style="background: white; border-top: 1px solid var(--color-gray-100);">
+        <div class="container">
+             <div class="section-header">
+                <h2 class="section-title">Conteúdo e Conhecimento</h2>
+                <p class="section-subtitle">Acompanhe minhas publicações e vídeos sobre o mundo da tecnologia.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="content-grid">
                 <!-- YouTube -->
-                <div class="relative rounded-2xl overflow-hidden shadow-xl group">
-                    <div class="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition z-10"></div>
-                    <!-- Imagem de fundo genérica tech -->
-                    <!-- Otimização: loading="lazy" -->
-                    <img src="images/photo-1498050108023-c5249f4df085.jpg?auto=format&fit=crop&q=80&w=800" class="w-full h-64 object-cover" alt="YouTube Channel" loading="lazy">
-                    <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-white p-6 text-center">
-                        <i class="fab fa-youtube text-5xl text-red-600 bg-white rounded-full p-2 mb-4 shadow-lg"></i>
-                        <h3 class="text-2xl font-bold mb-2">Canal no YouTube</h3>
-                        <p class="mb-6 text-gray-200">Vídeos tutoriais, dicas e análises sobre tecnologia.</p>
-                        <a href="https://www.youtube.com/@LuisMarceloAchite" target="_blank" rel="noopener noreferrer" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full transition">
+                <div class="content-box">
+                    <div class="content-box-overlay"></div>
+                    <img src="images/photo-1498050108023-c5249f4df085.jpg?auto=format&fit=crop&q=80&w=800" alt="YouTube Channel" loading="lazy">
+                    <div class="content-info">
+                        <i class="fab fa-youtube yt-icon"></i>
+                        <h3>Canal no YouTube</h3>
+                        <p>Vídeos tutoriais, dicas e análises sobre tecnologia.</p>
+                        <a href="https://www.youtube.com/@LuisMarceloAchite" target="_blank" rel="noopener noreferrer" class="btn" style="background-color: #dc2626; border-radius: 9999px; margin-top: 1rem;">
                             Inscrever-se
                         </a>
                     </div>
                 </div>
 
                 <!-- Blog -->
-                <div class="relative rounded-2xl overflow-hidden shadow-xl group">
-                    <div class="absolute inset-0 bg-blue-900/70 group-hover:bg-blue-900/60 transition z-10"></div>
-                    <!-- Imagem de fundo genérica escrita -->
-                    <!-- Otimização: loading="lazy" -->
-                    <img src="images/photo-1455390582262-044cdead277a.jpg?auto=format&fit=crop&q=80&w=800" class="w-full h-64 object-cover" alt="Blog Profissional" loading="lazy">
-                    <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-white p-6 text-center">
-                        <i class="fas fa-rss text-4xl text-orange-500 bg-white rounded-full p-3 mb-4 shadow-lg"></i>
-                        <h3 class="text-2xl font-bold mb-2">Blog Profissional</h3>
-                        <p class="mb-6 text-gray-200">Artigos aprofundados sobre gestão da informação e TI.</p>
-                        <a href="https://lmachite.blogspot.com/" target="_blank" rel="noopener noreferrer" class="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition">
+                <div class="content-box">
+                    <div class="content-box-overlay"></div>
+                    <img src="images/photo-1455390582262-044cdead277a.jpg?auto=format&fit=crop&q=80&w=800" alt="Blog Profissional" loading="lazy">
+                    <div class="content-info">
+                        <i class="fas fa-rss rss-icon"></i>
+                        <h3>Blog Profissional</h3>
+                        <p>Artigos aprofundados sobre gestão da informação e TI.</p>
+                        <a href="https://lmachite.blogspot.com/" target="_blank" rel="noopener noreferrer" class="btn" style="background-color: #f97316; border-radius: 9999px; margin-top: 1rem;">
                             Ler Artigos
                         </a>
                     </div>
@@ -501,141 +698,121 @@
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="py-20 bg-gray-50">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="font-heading text-3xl font-bold text-gray-900 section-title">Perguntas Frequentes</h2>
-                <p class="mt-4 text-gray-600">Tire suas dúvidas sobre como posso ajudar você ou sua empresa.</p>
+    <section id="faq" class="section-padding">
+        <div class="container" style="max-width: 56rem;">
+            <div class="section-header">
+                <h2 class="section-title">Perguntas Frequentes</h2>
+                <p class="section-subtitle">Tire suas dúvidas sobre como posso ajudar você ou sua empresa.</p>
             </div>
 
-            <div class="space-y-4">
+            <div class="faq-list">
                 <!-- Pergunta 1 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
-                        <span class="font-medium text-gray-900">Como funciona a consultoria técnica?</span>
-                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                <div class="faq-item">
+                    <button class="faq-btn" onclick="toggleFaq(this)">
+                        <span>Como funciona a consultoria técnica?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
                     </button>
-                    <div class="faq-content bg-gray-50">
-                        <p class="px-6 py-4 text-gray-600 text-sm">
-                            Realizo um diagnóstico inicial da sua situação atual, identifico gargalos e proponho soluções personalizadas, seja para hardware, software ou processos de TI.
-                        </p>
+                    <div class="faq-answer">
+                        <p>Realizo um diagnóstico inicial da sua situação atual, identifico gargalos e proponho soluções personalizadas, seja para hardware, software ou processos de TI.</p>
                     </div>
                 </div>
 
                 <!-- Pergunta 2 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
-                        <span class="font-medium text-gray-900">Você atende pessoas físicas ou apenas empresas?</span>
-                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                <div class="faq-item">
+                    <button class="faq-btn" onclick="toggleFaq(this)">
+                        <span>Você atende pessoas físicas ou apenas empresas?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
                     </button>
-                    <div class="faq-content bg-gray-50">
-                        <p class="px-6 py-4 text-gray-600 text-sm">
-                            Atendo ambos! Tenho serviços de "Personal Help Desk" focados em profissionais liberais e indivíduos, além da consultoria empresarial.
-                        </p>
+                    <div class="faq-answer">
+                        <p>Atendo ambos! Tenho serviços de "Personal Help Desk" focados em profissionais liberais e indivíduos, além da consultoria empresarial.</p>
                     </div>
                 </div>
 
                 <!-- Pergunta 3 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
-                        <span class="font-medium text-gray-900">O que é a Inovação em Unidades de Informação?</span>
-                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                <div class="faq-item">
+                    <button class="faq-btn" onclick="toggleFaq(this)">
+                        <span>O que é a Inovação em Unidades de Informação?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
                     </button>
-                    <div class="faq-content bg-gray-50">
-                        <p class="px-6 py-4 text-gray-600 text-sm">
-                            É a aplicação de tecnologias modernas para organizar, gerir e dar valor aos dados e informações de uma organização, facilitando o acesso e a tomada de decisão.
-                        </p>
+                    <div class="faq-answer">
+                        <p>É a aplicação de tecnologias modernas para organizar, gerir e dar valor aos dados e informações de uma organização, facilitando o acesso e a tomada de decisão.</p>
                     </div>
                 </div>
 
                 <!-- Pergunta 4 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
-                        <span class="font-medium text-gray-900">Você faz manutenção de sites que não foram criados por você?</span>
-                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                <div class="faq-item">
+                    <button class="faq-btn" onclick="toggleFaq(this)">
+                        <span>Você faz manutenção de sites que não foram criados por você?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
                     </button>
-                    <div class="faq-content bg-gray-50">
-                        <p class="px-6 py-4 text-gray-600 text-sm">
-                            Sim, posso assumir a manutenção, atualização e otimização de sites existentes, garantindo que eles permaneçam seguros e funcionais.
-                        </p>
+                    <div class="faq-answer">
+                        <p>Sim, posso assumir a manutenção, atualização e otimização de sites existentes, garantindo que eles permaneçam seguros e funcionais.</p>
                     </div>
                 </div>
 
                 <!-- Pergunta 5 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
-                        <span class="font-medium text-gray-900">Como funciona o agendamento pelo WhatsApp?</span>
-                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                <div class="faq-item">
+                    <button class="faq-btn" onclick="toggleFaq(this)">
+                        <span>Como funciona o agendamento pelo WhatsApp?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
                     </button>
-                    <div class="faq-content bg-gray-50">
-                        <p class="px-6 py-4 text-gray-600 text-sm">
-                            É simples e rápido. Ao clicar no botão de WhatsApp no site, você fala diretamente comigo para verificar disponibilidade e agendar um horário.
-                        </p>
+                    <div class="faq-answer">
+                        <p>É simples e rápido. Ao clicar no botão de WhatsApp no site, você fala diretamente comigo para verificar disponibilidade e agendar um horário.</p>
                     </div>
                 </div>
 
                 <!-- Pergunta 6 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
-                        <span class="font-medium text-gray-900">Quais tipos de treinamento em TI você oferece?</span>
-                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                <div class="faq-item">
+                    <button class="faq-btn" onclick="toggleFaq(this)">
+                        <span>Quais tipos de treinamento em TI você oferece?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
                     </button>
-                    <div class="faq-content bg-gray-50">
-                        <p class="px-6 py-4 text-gray-600 text-sm">
-                            Ofereço desde treinamentos básicos de uso de ferramentas de escritório até capacitações mais avançadas em segurança digital e uso de IA no trabalho.
-                        </p>
+                    <div class="faq-answer">
+                        <p>Ofereço desde treinamentos básicos de uso de ferramentas de escritório até capacitações mais avançadas em segurança digital e uso de IA no trabalho.</p>
                     </div>
                 </div>
 
                 <!-- Pergunta 7 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
-                        <span class="font-medium text-gray-900">Você ajuda com Inteligência Artificial?</span>
-                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                <div class="faq-item">
+                    <button class="faq-btn" onclick="toggleFaq(this)">
+                        <span>Você ajuda com Inteligência Artificial?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
                     </button>
-                    <div class="faq-content bg-gray-50">
-                        <p class="px-6 py-4 text-gray-600 text-sm">
-                            Com certeza. A IA é uma das minhas áreas de foco. Posso ajudar a integrar ferramentas de IA no seu fluxo de trabalho para aumentar a produtividade.
-                        </p>
+                    <div class="faq-answer">
+                        <p>Com certeza. A IA é uma das minhas áreas de foco. Posso ajudar a integrar ferramentas de IA no seu fluxo de trabalho para aumentar a produtividade.</p>
                     </div>
                 </div>
 
                  <!-- Pergunta 8 -->
-                 <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
-                        <span class="font-medium text-gray-900">É possível configurar um domínio personalizado para meu e-mail?</span>
-                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                 <div class="faq-item">
+                    <button class="faq-btn" onclick="toggleFaq(this)">
+                        <span>É possível configurar um domínio personalizado para meu e-mail?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
                     </button>
-                    <div class="faq-content bg-gray-50">
-                        <p class="px-6 py-4 text-gray-600 text-sm">
-                            Sim, a configuração de domínio (ex: seu_nome@suaempresa.com.br) traz profissionalismo e eu realizo toda a configuração técnica necessária.
-                        </p>
+                    <div class="faq-answer">
+                        <p>Sim, a configuração de domínio (ex: seu_nome@suaempresa.com.br) traz profissionalismo e eu realizo toda a configuração técnica necessária.</p>
                     </div>
                 </div>
 
                  <!-- Pergunta 9 -->
-                 <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
-                        <span class="font-medium text-gray-900">Você atende em quais regiões?</span>
-                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                 <div class="faq-item">
+                    <button class="faq-btn" onclick="toggleFaq(this)">
+                        <span>Você atende em quais regiões?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
                     </button>
-                    <div class="faq-content bg-gray-50">
-                        <p class="px-6 py-4 text-gray-600 text-sm">
-                            Atendo presencialmente na região (conforme disponibilidade) e remotamente para todo o Brasil, utilizando ferramentas de acesso remoto e videoconferência.
-                        </p>
+                    <div class="faq-answer">
+                        <p>Atendo presencialmente na região (conforme disponibilidade) e remotamente para todo o Brasil, utilizando ferramentas de acesso remoto e videoconferência.</p>
                     </div>
                 </div>
 
                 <!-- Pergunta 10 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition" onclick="toggleFaq(this)">
-                        <span class="font-medium text-gray-900">Qual é a sua formação?</span>
-                        <i class="fas fa-chevron-down text-tech-accent faq-icon transition-transform duration-300"></i>
+                <div class="faq-item">
+                    <button class="faq-btn" onclick="toggleFaq(this)">
+                        <span>Qual é a sua formação?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
                     </button>
-                    <div class="faq-content bg-gray-50">
-                        <p class="px-6 py-4 text-gray-600 text-sm">
-                           Sou Mestre em Computação Aplicada, Pós-graduando em Inovação em Unidades de Informação e Inteligência Artificial Aplicada a Negócios, Pós-graduação em Engenharia de Software. Tenho mais de 30 anos de experiência profissional.
-                        </p>
+                    <div class="faq-answer">
+                        <p>Sou Mestre em Computação Aplicada, Pós-graduando em Inovação em Unidades de Informação e Inteligência Artificial Aplicada a Negócios, Pós-graduação em Engenharia de Software. Tenho mais de 30 anos de experiência profissional.</p>
                     </div>
                 </div>
             </div>
@@ -643,207 +820,193 @@
     </section>
 
     <!-- Contato e Formulário -->
-    <section id="contato" class="py-20 relative bg-fixed-tech" style="background-image: url('images/photo-1519389950473-47ba0277781c.jpg?auto=format&fit=crop&q=80&w=1600');">
-        
-        <!-- Overlay escuro para garantir leitura total (95% de opacidade) -->
-        <div class="absolute inset-0 bg-slate-900/95"></div>
+    <section id="contato" class="contact">
+        <div class="contact-overlay"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
-            <div class="flex flex-col md:flex-row gap-12">
+        <div class="container contact-grid">
+            
+            <!-- Info de Contato -->
+            <div class="contact-details">
+                <h2>Vamos Conversar?</h2>
+                <p style="color: #bfdbfe; font-size: 1.125rem; margin-bottom: 2rem;">
+                    Estou pronto para ajudar você ou sua empresa a alcançar o próximo nível tecnológico. Entre em contato para uma consultoria personalizada.
+                </p>
                 
-                <!-- Info de Contato -->
-                <div class="w-full md:w-1/2">
-                    <h2 class="font-heading text-3xl font-bold mb-6">Vamos Conversar?</h2>
-                    <p class="text-blue-200 mb-8 text-lg">
-                        Estou pronto para ajudar você ou sua empresa a alcançar o próximo nível tecnológico. Entre em contato para uma consultoria personalizada.
-                    </p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-blue-800 rounded-full flex items-center justify-center backdrop-blur-md bg-opacity-80">
-                                <i class="fab fa-whatsapp text-2xl text-green-400"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-blue-300">WhatsApp / Celular</p>
-                                <p class="text-xl font-bold">12 99116-4273</p>
-                            </div>
+                <div class="contact-list">
+                    <div class="contact-row">
+                        <div class="icon-circle">
+                            <i class="fab fa-whatsapp" style="font-size: 1.5rem; color: #4ade80;"></i>
                         </div>
-
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-blue-800 rounded-full flex items-center justify-center backdrop-blur-md bg-opacity-80">
-                                <i class="fas fa-envelope text-2xl text-blue-300"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-blue-300">E-mail</p>
-                                <p class="text-xl font-bold">contato@lmachite.com.br</p>
-                            </div>
-                        </div>
-
-                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-blue-800 rounded-full flex items-center justify-center backdrop-blur-md bg-opacity-80">
-                                <i class="fas fa-map-marker-alt text-2xl text-blue-300"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-blue-300">Localização</p>
-                                <p class="text-xl font-bold">São José dos Campos, SP</p>
-                            </div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: #93c5fd;">WhatsApp / Celular</p>
+                            <p style="font-size: 1.25rem; font-weight: 700;">12 99116-4273</p>
                         </div>
                     </div>
 
-                    <!-- Agendar Consultoria CTA -->
-                    <div class="mt-10 p-6 bg-blue-900/90 rounded-xl border border-blue-700 backdrop-blur-sm">
-                        <h3 class="text-xl font-bold mb-2 text-white">Agendar Consultoria</h3>
-                        <p class="text-blue-200 mb-4 text-sm">Resposta mais rápida via WhatsApp.</p>
-                        <!-- Adicionado rel="noopener noreferrer" -->
-                        <a href="https://wa.me/5512991164273" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-green-500 hover:bg-green-600 text-center text-white font-bold rounded transition shadow-lg">
-                            <i class="fab fa-whatsapp mr-2"></i> Chamar no WhatsApp
-                        </a>
+                    <div class="contact-row">
+                        <div class="icon-circle">
+                            <i class="fas fa-envelope" style="font-size: 1.5rem; color: #93c5fd;"></i>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: #93c5fd;">E-mail</p>
+                            <p style="font-size: 1.25rem; font-weight: 700;">contato@lmachite.com.br</p>
+                        </div>
+                    </div>
+
+                     <div class="contact-row">
+                        <div class="icon-circle">
+                            <i class="fas fa-map-marker-alt" style="font-size: 1.5rem; color: #93c5fd;"></i>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: #93c5fd;">Localização</p>
+                            <p style="font-size: 1.25rem; font-weight: 700;">São José dos Campos, SP</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Formulário -->
-                <div class="w-full md:w-1/2 bg-white rounded-xl shadow-2xl p-8 text-gray-800">
-                    <h3 class="font-heading text-2xl font-bold text-gray-900 mb-6">Envie uma Mensagem</h3>
-                    <!-- FORMULÁRIO ATUALIZADO PARA FORMSPREE -->
-                    <!-- Lembre-se de trocar SEU_CODIGO_FORMSPREE pelo código real do seu painel Formspree -->
-                    <form action="https://formspree.io/f/mzdpoepw" method="POST">
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
-                                <!-- Adicionado atributo name="name" -->
-                                <input type="text" name="name" id="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-tech-accent focus:border-tech-accent outline-none transition" placeholder="Seu nome" required>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
-                                <!-- Adicionado atributo name="email" -->
-                                <input type="email" name="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-tech-accent focus:border-tech-accent outline-none transition" placeholder="seu@email.com" required>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Assunto</label>
-                                <!-- Adicionado atributo name="subject" -->
-                                <select name="subject" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-tech-accent focus:border-tech-accent outline-none transition">
-                                    <option>Consultoria Técnica</option>
-                                    <option>Criação de Site</option>
-                                    <option>Marketing Digital</option>
-                                    <option>Outros</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Sua Pergunta ou Mensagem</label>
-                                <!-- Adicionado atributo name="message" -->
-                                <textarea name="message" id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-tech-accent focus:border-tech-accent outline-none transition" placeholder="Como posso ajudar?" required></textarea>
-                            </div>
-                            <button type="submit" class="w-full py-3 bg-blue-900 text-white font-bold rounded hover:bg-slate-900 transition transform hover:scale-[1.02]">
-                                Enviar Mensagem
-                            </button>
-                        </div>
-                    </form>
+                <!-- Agendar Consultoria CTA -->
+                <div style="margin-top: 2.5rem; padding: 1.5rem; background: rgba(30, 58, 138, 0.9); border: 1px solid #1d4ed8; border-radius: 0.75rem; backdrop-filter: blur(4px);">
+                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Agendar Consultoria</h3>
+                    <p style="color: #bfdbfe; margin-bottom: 1rem; font-size: 0.875rem;">Resposta mais rápida via WhatsApp.</p>
+                    <a href="https://wa.me/5512991164273" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="display:flex; justify-content:center; width: 100%;">
+                        <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
+                    </a>
                 </div>
+            </div>
+
+            <!-- Formulário -->
+            <div class="contact-form-box">
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--color-gray-900);">Envie uma Mensagem</h3>
+                
+                <!-- Action do formulário mantida conforme seu arquivo -->
+                <form action="https://formspree.io/f/mzdpoepw" method="POST">
+                    <div class="form-group">
+                        <label>Nome Completo</label>
+                        <input type="text" name="name" class="form-control" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail</label>
+                        <input type="email" name="email" class="form-control" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Assunto</label>
+                        <select name="subject" class="form-control">
+                            <option>Consultoria Técnica</option>
+                            <option>Criação de Site</option>
+                            <option>Marketing Digital</option>
+                            <option>Outros</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sua Pergunta ou Mensagem</label>
+                        <textarea name="message" rows="4" class="form-control" placeholder="Como posso ajudar?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        Enviar Mensagem
+                    </button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-tech-dark text-gray-400 py-12 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <h2 class="text-white text-2xl font-heading font-bold">LUIS MARCELO ACHITE</h2>
-                    <p class="text-sm mt-1">Consultoria em TI e Inovação</p>
-                </div>
-                
-                <div class="flex space-x-6">
-                    <!-- Links do footer atualizados para abrir em nova aba -->
-                    <a href="https://www.linkedin.com/in/luis-marcelo-achite" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.facebook.com/lmachite" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/lmachite" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@LuisMarceloAchite" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-youtube"></i></a>
-                </div>
+    <footer class="footer">
+        <div class="container footer-flex">
+            <div>
+                <h2 style="color: white; font-size: 1.5rem; font-family: var(--font-heading); font-weight: 700;">LUIS MARCELO ACHITE</h2>
+                <p style="font-size: 0.875rem; margin-top: 0.25rem;">Consultoria em TI e Inovação</p>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
-                <p>&copy; 2025 Luis Marcelo Achite. Todos os direitos reservados.</p>
+            
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/luis-marcelo-achite" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.facebook.com/lmachite" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/lmachite" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@LuisMarceloAchite" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
             </div>
+        </div>
+        <div class="container" style="border-top: 1px solid #374151; margin-top: 2rem; padding-top: 2rem; text-align: center; font-size: 0.875rem;">
+            <p>&copy; 2025 Luis Marcelo Achite. Todos os direitos reservados.</p>
         </div>
     </footer>
 
     <!-- Modais de Detalhes -->
     
     <!-- Modal TI -->
-    <div id="modal-ti" class="modal fixed inset-0 z-[60] flex items-center justify-center px-4">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal('modal-ti')"></div>
-        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden">
-            <div class="bg-tech-DEFAULT p-6 text-white flex justify-between items-center">
-                <h3 class="font-heading text-2xl font-bold"><i class="fas fa-laptop-code mr-2"></i> Tecnologia da Informação</h3>
-                <button onclick="closeModal('modal-ti')" class="text-white/80 hover:text-white text-2xl focus:outline-none">&times;</button>
+    <div id="modal-ti" class="modal">
+        <div class="modal-bg" onclick="closeModal('modal-ti')"></div>
+        <div class="modal-panel">
+            <div class="modal-header">
+                <h3><i class="fas fa-laptop-code mr-2"></i> Tecnologia da Informação</h3>
+                <button onclick="closeModal('modal-ti')" class="close-modal">&times;</button>
             </div>
-            <div class="p-8 max-h-[80vh] overflow-y-auto">
-                <p class="text-gray-600 mb-6 leading-relaxed">
+            <div class="modal-body">
+                <p style="color: var(--color-gray-600); margin-bottom: 1.5rem;">
                     Com mais de 30 anos de experiência, ofereço uma visão sistêmica e analítica para resolver problemas complexos de infraestrutura e sistemas. Minha atuação foca em eficiência operacional e segurança.
                 </p>
-                <h4 class="font-bold text-gray-900 mb-3 border-l-4 border-tech-accent pl-3">Especialidades:</h4>
-                <ul class="space-y-3 mb-6">
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Administração de Redes (Unix/Linux/Windows) e Servidores Web.</span></li>
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Gestão de Banco de Dados (Oracle, PostgreSQL, MySQL).</span></li>
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Modelagem de Sistemas e Engenharia de Software.</span></li>
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Suporte Técnico Especializado (Help Desk) para Empresas e Pessoas Físicas (foco em público 40+).</span></li>
+                <h4 style="font-weight: 700; color: var(--color-gray-900); margin-bottom: 0.75rem; border-left: 4px solid var(--color-tech-accent); padding-left: 0.75rem;">Especialidades:</h4>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> <span>Administração de Redes (Unix/Linux/Windows) e Servidores Web.</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Gestão de Banco de Dados (Oracle, PostgreSQL, MySQL).</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Modelagem de Sistemas e Engenharia de Software.</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Suporte Técnico Especializado (Help Desk) para Empresas e Pessoas Físicas (foco em público 40+).</span></li>
                 </ul>
-                <div class="text-right">
-                    <button onclick="closeModal('modal-ti')" class="px-6 py-2 bg-gray-200 text-gray-700 font-bold rounded hover:bg-gray-300 transition">Fechar</button>
-                    <a href="#contato" onclick="closeModal('modal-ti')" class="px-6 py-2 bg-tech-DEFAULT text-white font-bold rounded ml-2 hover:bg-tech-dark transition">Solicitar Consultoria</a>
+                <div class="modal-footer">
+                    <button onclick="closeModal('modal-ti')" class="btn-close">Fechar</button>
+                    <a href="#contato" onclick="closeModal('modal-ti')" class="btn-action">Solicitar Consultoria</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Marketing -->
-    <div id="modal-mkt" class="modal fixed inset-0 z-[60] flex items-center justify-center px-4">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal('modal-mkt')"></div>
-        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden">
-            <div class="bg-tech-DEFAULT p-6 text-white flex justify-between items-center">
-                <h3 class="font-heading text-2xl font-bold"><i class="fas fa-bullhorn mr-2"></i> Marketing Digital</h3>
-                <button onclick="closeModal('modal-mkt')" class="text-white/80 hover:text-white text-2xl focus:outline-none">&times;</button>
+    <div id="modal-mkt" class="modal">
+        <div class="modal-bg" onclick="closeModal('modal-mkt')"></div>
+        <div class="modal-panel">
+            <div class="modal-header">
+                <h3><i class="fas fa-bullhorn mr-2"></i> Marketing Digital</h3>
+                <button onclick="closeModal('modal-mkt')" class="close-modal">&times;</button>
             </div>
-            <div class="p-8 max-h-[80vh] overflow-y-auto">
-                <p class="text-gray-600 mb-6 leading-relaxed">
+            <div class="modal-body">
+                <p style="color: var(--color-gray-600); margin-bottom: 1.5rem;">
                     Minha experiência como empreendedor e gestor de franquias digitais me permitiu desenvolver estratégias práticas para o crescimento de negócios no ambiente online.
                 </p>
-                <h4 class="font-bold text-gray-900 mb-3 border-l-4 border-tech-accent pl-3">Serviços Principais:</h4>
-                <ul class="space-y-3 mb-6">
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Gestão de Redes Sociais e Criação de Conteúdo.</span></li>
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Estratégias de Visibilidade para Pequenos e Médios Negócios.</span></li>
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Criação e Manutenção de Websites Responsivos.</span></li>
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Registro e Configuração de Domínios Personalizados.</span></li>
+                <h4 style="font-weight: 700; color: var(--color-gray-900); margin-bottom: 0.75rem; border-left: 4px solid var(--color-tech-accent); padding-left: 0.75rem;">Serviços Principais:</h4>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> <span>Gestão de Redes Sociais e Criação de Conteúdo.</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Estratégias de Visibilidade para Pequenos e Médios Negócios.</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Criação e Manutenção de Websites Responsivos.</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Registro e Configuração de Domínios Personalizados.</span></li>
                 </ul>
-                <div class="text-right">
-                    <button onclick="closeModal('modal-mkt')" class="px-6 py-2 bg-gray-200 text-gray-700 font-bold rounded hover:bg-gray-300 transition">Fechar</button>
-                    <a href="#contato" onclick="closeModal('modal-mkt')" class="px-6 py-2 bg-tech-DEFAULT text-white font-bold rounded ml-2 hover:bg-tech-dark transition">Falar Sobre Meu Projeto</a>
+                <div class="modal-footer">
+                    <button onclick="closeModal('modal-mkt')" class="btn-close">Fechar</button>
+                    <a href="#contato" onclick="closeModal('modal-mkt')" class="btn-action">Falar Sobre Meu Projeto</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Inovação -->
-    <div id="modal-inovacao" class="modal fixed inset-0 z-[60] flex items-center justify-center px-4">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal('modal-inovacao')"></div>
-        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden">
-            <div class="bg-tech-DEFAULT p-6 text-white flex justify-between items-center">
-                <h3 class="font-heading text-2xl font-bold"><i class="fas fa-lightbulb mr-2"></i> Inovação e IA</h3>
-                <button onclick="closeModal('modal-inovacao')" class="text-white/80 hover:text-white text-2xl focus:outline-none">&times;</button>
+    <div id="modal-inovacao" class="modal">
+        <div class="modal-bg" onclick="closeModal('modal-inovacao')"></div>
+        <div class="modal-panel">
+            <div class="modal-header">
+                <h3><i class="fas fa-lightbulb mr-2"></i> Inovação e IA</h3>
+                <button onclick="closeModal('modal-inovacao')" class="close-modal">&times;</button>
             </div>
-            <div class="p-8 max-h-[80vh] overflow-y-auto">
-                <p class="text-gray-600 mb-6 leading-relaxed">
+            <div class="modal-body">
+                <p style="color: var(--color-gray-600); margin-bottom: 1.5rem;">
                     Com Mestrado em Computação Aplicada e especialização em IA, ajudo a transformar dados em inteligência estratégica. O foco é modernizar processos e preparar sua empresa para o futuro.
                 </p>
-                <h4 class="font-bold text-gray-900 mb-3 border-l-4 border-tech-accent pl-3">Diferenciais:</h4>
-                <ul class="space-y-3 mb-6">
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Consultoria em IA Generativa (ChatGPT, Gemini, Copilot).</span></li>
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Gestão Estratégica da Informação e Dados.</span></li>
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Automação de Processos para Aumento de Eficiência.</span></li>
-                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i> <span>Treinamentos Corporativos em Novas Tecnologias.</span></li>
+                <h4 style="font-weight: 700; color: var(--color-gray-900); margin-bottom: 0.75rem; border-left: 4px solid var(--color-tech-accent); padding-left: 0.75rem;">Diferenciais:</h4>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> <span>Consultoria em IA Generativa (ChatGPT, Gemini, Copilot).</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Gestão Estratégica da Informação e Dados.</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Automação de Processos para Aumento de Eficiência.</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Treinamentos Corporativos em Novas Tecnologias.</span></li>
                 </ul>
-                <div class="text-right">
-                    <button onclick="closeModal('modal-inovacao')" class="px-6 py-2 bg-gray-200 text-gray-700 font-bold rounded hover:bg-gray-300 transition">Fechar</button>
-                    <a href="#contato" onclick="closeModal('modal-inovacao')" class="px-6 py-2 bg-tech-DEFAULT text-white font-bold rounded ml-2 hover:bg-tech-dark transition">Quero Inovar</a>
+                <div class="modal-footer">
+                    <button onclick="closeModal('modal-inovacao')" class="btn-close">Fechar</button>
+                    <a href="#contato" onclick="closeModal('modal-inovacao')" class="btn-action">Quero Inovar</a>
                 </div>
             </div>
         </div>
@@ -855,11 +1018,7 @@
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
-                modal.classList.remove('hidden');
-                // Pequeno delay para permitir a transição CSS
-                setTimeout(() => {
-                    modal.classList.add('active');
-                }, 10);
+                modal.classList.add('active');
                 document.body.style.overflow = 'hidden'; // Impede rolagem do fundo
             }
         }
@@ -868,9 +1027,6 @@
             const modal = document.getElementById(modalId);
             if (modal) {
                 modal.classList.remove('active');
-                setTimeout(() => {
-                    modal.classList.add('hidden'); // Adiciona hidden após a transição
-                }, 300); // Tempo igual ao da transição CSS
                 document.body.style.overflow = ''; // Libera rolagem
             }
         }
@@ -885,10 +1041,6 @@
             }
         });
 
-        // Garantir que os modais comecem ocultos
-        document.querySelectorAll('.modal').forEach(modal => modal.classList.add('hidden'));
-
-
         // Menu Mobile Toggle
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
@@ -902,8 +1054,8 @@
             const parent = button.parentElement;
             
             // Fecha outros abertos (efeito sanfona único)
-            const allFaqs = document.querySelectorAll('.faq-content').forEach(el => {
-                if (el !== parent.querySelector('.faq-content')) {
+            const allFaqs = document.querySelectorAll('.faq-answer').forEach(el => {
+                if (el !== parent.querySelector('.faq-answer')) {
                     el.parentElement.classList.remove('faq-active');
                 }
             });
@@ -911,12 +1063,11 @@
             parent.classList.toggle('faq-active');
         }
 
-        // Smooth Scroll para links internos em navegadores antigos
+        // Smooth Scroll e fechar menu mobile
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                menu.classList.add('hidden'); // Fecha menu mobile se aberto
-                // Verifica se o link é para fechar modal ou navegação
+                menu.classList.add('hidden'); 
                 const targetId = this.getAttribute('href');
                 if (targetId && targetId !== '#') {
                     const targetElement = document.querySelector(targetId);
@@ -933,23 +1084,25 @@
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 10) {
-                nav.classList.add('shadow-lg');
+                nav.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
             } else {
-                nav.classList.remove('shadow-lg');
+                nav.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
             }
         });
     </script>
 
-    <!-- Scripts de Terceiros (Defer ou no final do body para não bloquear renderização) -->
+    <!-- Scripts de Terceiros -->
     
-    <!-- Script do Loader da RD Station (mantido, mas considere remover se não estiver usando ativamente para ganhar performance) -->
+    <!-- Loader RD Station -->
     <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/81464cff-5dd2-41d1-81ed-96f4454fa51c-loader.js" ></script> 
 
+    <!-- Vercel Analytics -->
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script src="/_vercel/insights/script.js"></script>
 
+    <!-- Vercel Speed Insights -->
     <script>
         window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>
