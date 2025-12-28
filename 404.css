@@ -1,0 +1,177 @@
+/* --- CSS PURO OTIMIZADO PARA PÁGINA 404 --- */
+
+:root {
+    /* Paleta de Cores Consistente */
+    --color-primary: #1e3a8a;    /* Azul Escuro */
+    --color-accent: #3b82f6;     /* Azul Brilhante */
+    --color-dark: #0f172a;       /* Slate Escuro */
+    --color-text: #374151;       /* Cinza Texto */
+    --color-text-light: #6b7280; /* Cinza Claro */
+    --color-bg: #f9fafb;         /* Fundo */
+    --color-white: #ffffff;
+    
+    /* Fontes */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Navbar Simplificada */
+.navbar {
+    background-color: var(--color-white);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.logo i {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-dark);
+    line-height: 1;
+}
+
+.logo-subtitle {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 0.75rem;
+    color: var(--color-primary);
+    letter-spacing: 0.1em;
+    line-height: 1;
+}
+
+/* Conteúdo Principal */
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 80px; /* Altura da navbar */
+    position: relative;
+}
+
+/* Elementos Decorativos de Fundo */
+.bg-pattern {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(var(--color-primary) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.05;
+    z-index: -1;
+}
+
+.error-code {
+    font-family: var(--font-heading);
+    font-size: 8rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: 1rem;
+    text-shadow: 4px 4px 0px rgba(59, 130, 246, 0.2);
+    animation: float 6s ease-in-out infinite;
+}
+
+.error-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    font-size: 1.125rem;
+    color: var(--color-text-light);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+/* Botão */
+.btn-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-weight: 700;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.3);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-home:hover {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.2);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--color-white);
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Animação */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+    .error-code { font-size: 6rem; }
+    .error-title { font-size: 1.5rem; }
+    .error-message { font-size: 1rem; }
+}
