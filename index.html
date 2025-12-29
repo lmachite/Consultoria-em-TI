@@ -43,6 +43,10 @@
     <!-- Link para o arquivo CSS externo -->
     <link rel="stylesheet" href="styles.css">
 
+    <!-- --- JAVASCRIPT OTIMIZADO (DEFER) --- -->
+    <!-- Carrega o script em segundo plano e executa após o HTML ser analisado -->
+    <script src="script.js" defer></script>
+
 </head>
 <body>
 
@@ -466,7 +470,7 @@
                         <i class="fas fa-chevron-down faq-icon"></i>
                     </button>
                     <div class="faq-answer">
-                        <p>Sou Mestre em Computação Aplicada, Pós-graduando em Inovação em Unidades de Informação e Inteligência Artificial Aplicada a Negócios, Pós-graduação em Engenharia de Software. Tenho mais de 30 anos de experiência profissional.</p>
+                        <p>Sou Mestre em Computação Aplicada, Pós-graduando em Inovação em Unidades de Informação e Inteligência Artificial Aplicada a Negócios, Pós-graduado em Engenharia de Software. Tenho mais de 30 anos de experiência profissional.</p>
                     </div>
                 </div>
             </div>
@@ -665,85 +669,6 @@
             </div>
         </div>
     </div>
-
-    <!-- JavaScript para Interatividade -->
-    <script>
-        // Funções dos Modais
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Impede rolagem do fundo
-            }
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = ''; // Libera rolagem
-            }
-        }
-
-        // Fechar modal com a tecla ESC
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
-                const activeModals = document.querySelectorAll('.modal.active');
-                activeModals.forEach(modal => {
-                    closeModal(modal.id);
-                });
-            }
-        });
-
-        // Menu Mobile Toggle
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-
-        // FAQ Accordion
-        function toggleFaq(button) {
-            const parent = button.parentElement;
-            
-            // Fecha outros abertos (efeito sanfona único)
-            const allFaqs = document.querySelectorAll('.faq-answer').forEach(el => {
-                if (el !== parent.querySelector('.faq-answer')) {
-                    el.parentElement.classList.remove('faq-active');
-                }
-            });
-
-            parent.classList.toggle('faq-active');
-        }
-
-        // Smooth Scroll e fechar menu mobile
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                menu.classList.add('hidden'); 
-                const targetId = this.getAttribute('href');
-                if (targetId && targetId !== '#') {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            });
-        });
-        
-        // Navbar com sombra ao rolar
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 10) {
-                nav.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
-            } else {
-                nav.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
-            }
-        });
-    </script>
 
     <!-- Scripts de Terceiros -->
     
